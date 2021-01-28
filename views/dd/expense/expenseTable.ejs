@@ -1,0 +1,49 @@
+<%if (records.length >0){ %>
+    <table class="table table-bordered table-striped" id="tblCustomers" cellspacing="0" cellpadding="0">
+    <thead>
+    <tr>
+        <th>ক্রমিক নং</th>
+        <th>অর্থনৈতিক কোড নং</th>
+        <th>খরচের খাত</th>
+        <th>বরাদ্দকৃত টাকার পরিমাণ</th>
+        <th>খরচকৃত টাকার পরিমাণ</th>
+        <th>অব্যয়িত/অবশিষ্ট টাকার পরিমাণ</th>
+        <th>মন্তব্য</th>
+    </tr>
+    </thead>
+    <tbody>
+        <% records.forEach(function(row,index) { %>
+            <tr>
+                <td><%= index+1 %></td>
+                <td><%= row.code %></td>
+                <td><%= row.khat %></td>
+                <td><%= row.boraddo %></td>
+                <td><%= row.expense %></td>
+                <td><%= row.baki %></td>
+                <td><%= row.comment%></td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+<% }else{ %>
+    <table class="table table-bordered table-striped" id="tblCustomers" cellspacing="0" cellpadding="0">
+        <thead>
+        <tr>
+            <th>ক্রমিক নং</th>
+        <th>অর্থনৈতিক কোড নং</th>
+        <th>খরচের খাত</th>
+        <th>বরাদ্দকৃত টাকার পরিমাণ</th>
+        <th>খরচকৃত টাকার পরিমাণ</th>
+        <th>অব্যয়িত/অবশিষ্ট টাকার পরিমাণ</th>
+        <th>মন্তব্য</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% records.forEach(function(row){ %>
+            <tr>
+                <td colspan="10">No data Found</td>
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+<% } %>

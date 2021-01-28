@@ -1,0 +1,53 @@
+<%if (records.length >0){ %>
+    <table class="table table-bordered table-striped" id="tblCustomers" cellspacing="0" cellpadding="0">
+    <thead>
+    <tr>
+        <th>ক্রমিক নং</th>
+        <th>কৃষক প্রশিক্ষণ কেন্দ্র/কৃষক সেবা কেন্দ্র</th>
+        <th>কার্যাদেশ দেয়ার তারিখ</th>
+        <th>কার্যাদেশ প্রাপ্ত ব্যক্তি/প্রতিষ্ঠানের নাম</th>
+        <th>অনুমোদিত দরপত্রে গৃহীত মূল্য/চুক্তিমূল্য</th>
+        <th>কাজের অগ্রগতি</th>
+        <th>কত দিনে সম্পন্ন হবে</th>
+        <th>পরিবর্তন/মুছুন</th>
+    </tr>
+    </thead>
+    <tbody>
+        <% records.forEach(function(row,index) { %>
+            <tr>
+                <td><%= index+1 %></td>
+                <td><%= row.center %></td>
+                <td><%= row.karjadeshDate %></td>
+                <td><%= row.karjadeshName %></td>
+                <td><%= row.value %></td>
+                <td><%= row.progress %></td>
+                <td><%= row.time %></td>
+                <td><a class="btn btn-primary btn-xs" href="/upazilla/noaFormEdit/<%= row.id %>"><i class="fa fa-edit"></i></a>
+                    <a class="btn btn-danger btn-xs" href="/upazilla/noaDelete/<%= row.id %>"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+<% }else{ %>
+    <table class="table table-bordered table-striped" id="tblCustomers" cellspacing="0" cellpadding="0">
+        <thead>
+        <tr>
+            <th>ক্রমিক নং</th>
+            <th>কৃষক প্রশিক্ষণ কেন্দ্র/কৃষক সেবা কেন্দ্র:</th>
+            <th>কার্যাদেশ দেয়ার তারিখ</th>
+            <th>কার্যাদেশ প্রাপ্ত ব্যক্তি/প্রতিষ্ঠানের নাম</th>
+            <th>অনুমোদিত দরপত্রে গৃহীত মূল্য/চুক্তিমূল্য</th>
+            <th>কাজের অগ্রগতি</th>
+            <th>কত দিনে সম্পন্ন হবে</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% records.forEach(function(row){ %>
+            <tr>
+                <td colspan="10">No data Found</td>
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+<% } %>

@@ -1,0 +1,52 @@
+<%if (records.length >0){ %>
+    <table class="table table-bordered table-striped" id="tblCustomers" cellspacing="0" cellpadding="0">
+    <thead>
+    <tr>
+        <th>ক্রমিক নং</th>
+        <th>কৃষক/কৃষাণীর নাম</th>
+        <th>পিতা/স্বামীর নাম</th>
+        <th>গ্রাম</th>
+        <th>ইউনিয়ন</th>
+        <th>মোবাইল নম্বর</th>
+        <th>আইডি নম্বর</th>
+        <th>মন্তব্য</th>
+    </tr>
+    </thead>
+    <tbody>
+        <% records.forEach(function(row,index) { %>
+            <tr>
+                <td><%= index+1 %></td>
+                <td><%= row.name %></td>
+                <td><%= row.fname %></td>
+                <td><%= row.village %></td>
+                <td><%= row.union %></td>
+                <td><%= row.mnum %></td>
+                <td><%= row.nid %></td>
+                <td><%= row.comment%></td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+<% }else{ %>
+    <table class="table table-bordered table-striped" id="tblCustomers" cellspacing="0" cellpadding="0">
+        <thead>
+        <tr>
+            <th>ক্রমিক নং</th>
+        <th>কৃষক/কৃষাণীর নাম</th>
+        <th>পিতা/স্বামীর নাম</th>
+        <th>গ্রাম</th>
+        <th>ইউনিয়ন</th>
+        <th>মোবাইল নম্বর</th>
+        <th>আইডি নম্বর</th>
+        <th>মন্তব্য</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% records.forEach(function(row){ %>
+            <tr>
+                <td colspan="10">No data Found</td>
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+<% } %>

@@ -1,0 +1,96 @@
+<%- include('../../includes/header')-%>
+        <div class="wrapper">
+          <%- include('../../includes/topbar')-%>
+            <div class="page-wrap">
+              <%- include('../../includes/sidebar')-%>
+              <div class="main-content">
+                <div class="container-fluid">
+                    <div class="row clearfix">
+                    <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <div class="panel-title"><h2>NOA সংক্রান্ত তথ্য ফর্ম</h2></div>
+                                <p><%
+                                if(success !=''){ %>
+                                <%= success %>
+                                    <% } %>
+                                </p>
+                                </div>  
+                            <div class="panel-body" >
+                                <form action="/upazilla/noaFormEditPost/<%= records.id %>" id="FieldTrialForm" class="form-horizontal" method="post"  role="form">
+                                    <div id="signupalert" style="display:none" class="alert alert-danger">
+                                        <p>Error:</p>
+                                        <span></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-9">
+                                            <label for="center">কৃষক প্রশিক্ষণ কেন্দ্র/কৃষক সেবা কেন্দ্র:</label>
+                                        <select id="center" name="center" required value="<%=records.center%>">
+                                            <option value="কৃষক প্রশিক্ষণ কেন্দ্র">কৃষক প্রশিক্ষণ কেন্দ্র</option>
+                                            <option value="কৃষক সেবা কেন্দ্র">কৃষক সেবা কেন্দ্র</option>
+                                        </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="karjadeshDate" class="col-md-3 control-label">কার্যাদেশ দেয়ার তারিখ</label>
+                                        <div class="col-md-9">
+                                            <input type="date" class="form-control" name="karjadeshDate" placeholder="কার্যাদেশ দেয়ার তারিখ" value="<%=records.karjadeshDate%>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="karjadeshName" class="col-md-3 control-label">কার্যাদেশ প্রাপ্ত ব্যক্তি/প্রতিষ্ঠানের নাম</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="karjadeshName" placeholder="কার্যাদেশ প্রাপ্ত ব্যক্তি/প্রতিষ্ঠানের নাম" value="<%=records.karjadeshName%>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="value" class="col-md-3 control-label">অনুমোদিত দরপত্রে গৃহীত মূল্য/চুক্তিমূল্য</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="value" placeholder="অনুমোদিত দরপত্রে গৃহীত মূল্য/চুক্তিমূল্য" value="<%=records.value%>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="progress" class="col-md-3 control-label">কাজের অগ্রগতি</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="progress" placeholder="কাজের অগ্রগতি" value="<%=records.progress%>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="time" class="col-md-3 control-label">কত দিনে সম্পন্ন হবে</label>
+                                        <div class="col-md-9">
+                                        <input type="text" class="form-control" name="time" placeholder="কত দিনে সম্পন্ন হবে" value="<%=records.time%>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-9">
+                                            <input type="hidden" class="form-control" name="user_id" placeholder="id" value="<%= user_id %>">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <!-- Button -->                                        
+                                        <div class="col-md-offset-3 col-md-9">
+                                        <input type="submit" name="submit" value="submit" class="btn btn-primary">   
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                        
+                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include('../../includes/footer')-%>

@@ -1,0 +1,101 @@
+<%- include('../../includes/header')-%>
+        <div class="wrapper">
+          <%- include('../../includes/topbar')-%>
+            <div class="page-wrap">
+              <%- include('../../includes/sidebar')-%>
+              <div class="main-content">
+                <div class="container-fluid">
+                    <div class="row clearfix">
+                    <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <div class="panel-title"><h2>চলমান কার্যক্রমের অগ্রগতি তথ্য ফর্ম</h2></div>
+                                <p><%
+                                if(success !=''){ %>
+                                <%= success %>
+                                    <% } %>
+                                </p>
+                                </div>  
+                            <div class="panel-body" >
+                                <form action="/upazilla/progressFormPost" id="FieldTrialForm" class="form-horizontal" method="post"  role="form">
+                                    <div id="signupalert" style="display:none" class="alert alert-danger">
+                                        <p>Error:</p>
+                                        <span></span>
+                                    </div>
+
+                                        
+                                    <div class="form-group">
+                                        <label for="nirman" class="col-md-3 control-label">নির্মাণ কাজের অগ্রগতি (বর্তমান অবস্থা)</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="nirmanPresent" placeholder="নির্মাণ কাজের অগ্রগতি (বর্তমান অবস্থা)">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="nirman" class="col-md-3 control-label">নির্মাণ কাজের অগ্রগতি (পর্যবেক্ষণ)</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="nirmanComment" placeholder="নির্মাণ কাজের অগ্রগতি (পর্যবেক্ষণ)">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="proshikkhon" class="col-md-3 control-label">প্রশিক্ষণ কার্যক্রমের অগ্রগতি (বর্তমান অবস্থা)</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="proshikkhonPresent" placeholder="প্রশিক্ষণ কার্যক্রমের অগ্রগতি (বর্তমান অবস্থা)">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="proshikkhon" class="col-md-3 control-label">প্রশিক্ষণ কার্যক্রমের অগ্রগতি (পর্যবেক্ষণ)</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="proshikkhonComment" placeholder="প্রশিক্ষণ কার্যক্রমের অগ্রগতি (পর্যবেক্ষণ)">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="prodorshoni" class="col-md-3 control-label">প্রদর্শনী কার্যক্রম (বর্তমান অবস্থা)</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="prodorshoniPresent" placeholder="প্রদর্শনী কার্যক্রম (বর্তমান অবস্থা)">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="prodorshoni" class="col-md-3 control-label">প্রদর্শনী কার্যক্রম (পর্যবেক্ষণ)</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="prodorshoniComment" placeholder="প্রদর্শনী কার্যক্রম (পর্যবেক্ষণ)">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="car" class="col-md-3 control-label">গাড়ী</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="car" placeholder="গাড়ী">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="col-md-9">
+                                            <input type="hidden" class="form-control" name="user_id" placeholder="id" value="<%= user_id %>">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <!-- Button -->                                        
+                                        <div class="col-md-offset-3 col-md-9">
+                                        <input type="submit" name="submit" value="submit" class="btn btn-primary">   
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                        
+                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include('../../includes/footer')-%>

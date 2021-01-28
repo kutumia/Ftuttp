@@ -1,0 +1,103 @@
+<%- include('../../includes/header')-%>
+        <div class="wrapper">
+          <%- include('../../includes/topbar')-%>
+            <div class="page-wrap">
+              <%- include('../../includes/sidebar')-%>
+              <div class="main-content">
+                <div class="container-fluid">
+                    <div class="row clearfix">
+                    <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <div class="panel-title"><h2>হিসাব বিবরণী তথ্য ফর্ম</h2></div>
+                                <p><%
+                                if(success !=''){ %>
+                                <%= success %>
+                                    <% } %>
+                                </p>
+                                </div>  
+                            <div class="panel-body" >
+                                <form action="/upazilla/expenseFormPost" id="FieldTrialForm" class="form-horizontal" method="post"  role="form">
+                                    <div id="signupalert" style="display:none" class="alert alert-danger">
+                                        <p>Error:</p>
+                                        <span></span>
+                                    </div>
+
+                                        
+                                    <div class="form-group">
+                                        <label for="code" class="col-md-3 control-label">অর্থনৈতিক কোড নং</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="code" placeholder="অর্থনৈতিক কোড নং">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="khat" class="col-md-3 control-label">খরচের খাত</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="khat" placeholder="খরচের খাত">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="boraddo" class="col-md-3 control-label">বরাদ্দকৃত টাকার পরিমাণ</label>
+                                        <div class="col-md-9">
+                                            <input type="number" class="form-control" name="boraddo" placeholder="বরাদ্দকৃত টাকার পরিমাণ">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="expense" class="col-md-3 control-label">খরচকৃত টাকার পরিমাণ</label>
+                                        <div class="col-md-9">
+                                            <input type="number" class="form-control" name="expense" placeholder="খরচকৃত টাকার পরিমাণ">
+                                        </div>
+                                    </div>
+                                
+                                    <div class="form-group">
+                                        <label for="comment" class="col-md-3 control-label">মন্তব্য</label>
+                                        <div class="col-md-9">
+                                            <input type="text" class="form-control" name="comment" placeholder="মন্তব্য">
+                                        </div>
+                                    </div>
+
+                                    
+
+                                    <div class="form-group">
+                                        <div class="col-md-9">
+                                            <label for="year">বছর :</label>
+                                        <select id="year" name="year" required>
+                                            <option value="2017">২০১৭-১৮</option>
+                                            <option value="2018">২০১৮-১৯</option>
+                                            <option value="2019">২০১৯-২০</option>
+                                            <option value="2020">২০২০-২১</option>
+                                            <option value="2021">২০২১-২২</option>
+                                            <option value="2022">২০২২-২৩</option>
+                                        </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-9">
+                                            <input type="hidden" class="form-control" name="user_id" placeholder="id" value="<%= user_id %>">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <!-- Button -->                                        
+                                        <div class="col-md-offset-3 col-md-9">
+                                        <input type="submit" name="submit" value="submit" class="btn btn-primary">   
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                        
+                                    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include('../../includes/footer')-%>

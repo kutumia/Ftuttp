@@ -1,0 +1,49 @@
+<%if (records.length >0){ %>
+    <table class="table table-bordered table-striped" id="tblCustomers" cellspacing="0" cellpadding="0">
+    <thead>
+    <tr>
+        <th>ক্রমিক নং</th>
+        <th>কৃষকের নাম ও ঠিকানা</th>
+        <th>কৃষকের এনআইডি ও মোবাইল নম্বর</th>
+        <th>প্রদর্শনী তদারকির দায়িত্বপ্রাপ্ত এসএএও এর নাম ও মোবাইল নম্বর</th>
+        <th>সরবরাহকৃত উপকরণ (বীজ/চারা,সার,নগদ,অর্থ ইত্যাদি অন্যান্য প্রযোজ্য উপকরণ সামগ্রী)</th>
+        <th>উপকরণ বিতরণের তারিখ</th>
+        <th>মন্তব্য</th>
+    </tr>
+    </thead>
+    <tbody>
+        <% records.forEach(function(row,index) { %>
+            <tr>
+                <td><%= index+1 %></td>
+                <td><%= row.name %></td>
+                <td><%= row.nid %></td>
+                <td><%= row.saao %></td>
+                <td><%= row.supply %></td>
+                <td><%= row.date %></td>
+                <td><%= row.comment %></td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+<% }else{ %>
+    <table class="table table-bordered table-striped" id="tblCustomers" cellspacing="0" cellpadding="0">
+        <thead>
+        <tr>
+            <th>ক্রমিক নং</th>
+        <th>কৃষকের নাম ও ঠিকানা</th>
+        <th>কৃষকের এনআইডি ও মোবাইল নম্বর</th>
+        <th>প্রদর্শনী তদারকির দায়িত্বপ্রাপ্ত এসএএও এর নাম ও মোবাইল নম্বর</th>
+        <th>সরবরাহকৃত উপকরণ (বীজ/চারা,সার,নগদ,অর্থ ইত্যাদি অন্যান্য প্রযোজ্য উপকরণ সামগ্রী)</th>
+        <th>উপকরণ বিতরণের তারিখ</th>
+        <th>মন্তব্য</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% records.forEach(function(row){ %>
+            <tr>
+                <td colspan="10">No data Found</td>
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+<% } %>
