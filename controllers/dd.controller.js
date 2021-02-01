@@ -406,7 +406,7 @@ module.exports.vermiCompostInitialFilter=async(req,res)=>{
         where: {year: req.body.year,upazilla_id: req.body.upazilla}
     })
     .then(data => {
-        res.render('dd/vermiCompostInitial/vermiCompostInitialTable', {records: data} ,function(err, html) {
+        res.render('dd/vermiCompostInitial/vermiCompostTable', {records: data} ,function(err, html) {
             res.send(html);
         });
     })

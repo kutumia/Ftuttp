@@ -579,12 +579,13 @@ module.exports.vermiCompostFinalFilter=async(req,res)=>{
         where: {year: req.body.year,upazilla_id: req.body.upazilla}
     })
     .then(data => {
-        res.render('pd/vermiCompostFinal/vermiCompostFinalTable', {records: data} ,function(err, html) {
+        console.log("data",data);
+        res.render('pd/vermiCompostFinal/vermiCompostTable', {records: data} ,function(err, html) {
             res.send(html);
         });
     })
     .catch(err => {
-        res.render('pd/vermiCompostFinal/vermiCompostFinalYear', { title: 'প্রদর্শনীর (ভার্মি কম্পোস্ট) চূড়ান্ত প্রতিবেদন',success:'', records: err });
+        console.log(err)
     })
 
 };
