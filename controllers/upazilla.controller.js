@@ -173,7 +173,7 @@ module.exports.trainedFarmerYear=async(req,res)=>{
         });
     })
     .catch(err => {
-        res.render('upazilla/trainedFarmer/trainedFarmerYear', { title: 'প্রশিক্ষণপ্রাপ্ত কৃষকের তথ্য',success:'', records: err });
+        console.log(err);
     })
 
 };
@@ -401,7 +401,7 @@ module.exports.fieldDayYear=async(req,res)=>{
         });
     })
     .catch(err => {
-        res.render('upazilla/fieldDay/fieldDayYear', { title: 'মাঠ দিবস ফর্ম',success:'', records: err });
+        console.log(err);
     })
 
 };
