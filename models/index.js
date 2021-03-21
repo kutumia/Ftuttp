@@ -33,5 +33,6 @@ db.vermiCompostInitial = require("./vermiCompostInitial.model.js")(sequelize, Se
 db.kormoshuchi = require("./kormoshuchi.model.js")(sequelize, Sequelize);
 db.progress = require("./progress.model.js")(sequelize, Sequelize);
 db.noa = require("./noa.model.js")(sequelize, Sequelize);
+db.trainedFarmerUpload = require("./trainedFarmerUpload.model.js")(sequelize, Sequelize);
 
 module.exports = db;

@@ -13,9 +13,13 @@ const vermiCompostFinal = db.vermiCompostFinal;
 const kormoshuchi = db.kormoshuchi;
 const noa = db.noa;
 const progress = db.progress;
+const trainedFarmerUpload = db.trainedFarmerUpload;
 
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
+let pdf = require("html-pdf");
+let ejs = require("ejs");
 
 const jwt= require('jsonwebtoken');
 const bcrypt= require('bcryptjs'); 
@@ -23,6 +27,154 @@ const bcrypt= require('bcryptjs');
 const { request, response } = require('express');
 const express = require('express');
 
+//multer setup for trainedFarmerUpload image
+var storageImage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/trainedFarmerUpload');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    },
+  });  
+var uploadtrainedFarmerImage = multer({
+    storage: storageImage,
+ }).single("trainedFarmerUpload");
+ exports.uploadtrainedFarmerImage=uploadtrainedFarmerImage;
+ //multer setup for dashImage image ends
+
+ //multer setup for expenseUpload image
+var storageImage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/expenseUpload');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    },
+  });  
+var uploadexpenseImage = multer({
+    storage: storageImage,
+ }).single("expenseUpload");
+ exports.uploadexpenseImage=uploadexpenseImage;
+ //multer setup for dashImage image ends
+
+ //multer setup for fieldDayUpload image
+var storageImage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/fieldDayUpload');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    },
+  });  
+var uploadfieldDayImage = multer({
+    storage: storageImage,
+ }).single("fieldDayUpload");
+ exports.uploadfieldDayImage=uploadfieldDayImage;
+ //multer setup for dashImage image ends
+
+ //multer setup for demonstrationInitialUpload image
+var storageImage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/demonstrationInitialUpload');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    },
+  });  
+var uploaddemonstrationInitialImage = multer({
+    storage: storageImage,
+ }).single("demonstrationInitialUpload");
+ exports.uploaddemonstrationInitialImage=uploaddemonstrationInitialImage;
+ //multer setup for dashImage image ends
+
+ //multer setup for demonstrationFinalUpload image
+var storageImage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/demonstrationFinalUpload');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    },
+  });  
+var uploaddemonstrationFinalImage = multer({
+    storage: storageImage,
+ }).single("demonstrationFinalUpload");
+ exports.uploaddemonstrationFinalImage=uploaddemonstrationFinalImage;
+ //multer setup for dashImage image ends
+
+ //multer setup for noaUpload image
+var storageImage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/noaUpload');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    },
+  });  
+var uploadnoaImage = multer({
+    storage: storageImage,
+ }).single("noaUpload");
+ exports.uploadnoaImage=uploadnoaImage;
+ //multer setup for dashImage image ends
+
+ //multer setup for progressUpload image
+var storageImage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/progressUpload');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    },
+  });  
+var uploadprogressImage = multer({
+    storage: storageImage,
+ }).single("progressUpload");
+ exports.uploadprogressImage=uploadprogressImage;
+ //multer setup for dashImage image ends
+
+//multer setup for vermiCompostInitialUpload image
+var storageImage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/vermiCompostInitialUpload');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    },
+  });  
+var uploadvermiCompostInitialImage = multer({
+    storage: storageImage,
+ }).single("vermiCompostInitialUpload");
+ exports.uploadvermiCompostInitialImage=uploadvermiCompostInitialImage;
+ //multer setup for dashImage image ends
+
+ //multer setup for vermiCompostFinalUpload image
+var storageImage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/vermiCompostFinalUpload');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    },
+  });  
+var uploadvermiCompostFinalImage = multer({
+    storage: storageImage,
+ }).single("vermiCompostFinalUpload");
+ exports.uploadvermiCompostFinalImage=uploadvermiCompostFinalImage;
+ //multer setup for dashImage image ends
+  //multer setup for kormoshuchiUpload image
+var storageImage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/kormoshuchiUpload');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    },
+  });  
+var uploadkormoshuchiImage = multer({
+    storage: storageImage,
+ }).single("kormoshuchiUpload");
+ exports.uploadkormoshuchiImage=uploadkormoshuchiImage;
+ //multer setup for dashImage image ends
 
 module.exports.upazillalogin=async(req,res)=>{
     res.render('upazilla/login', { title: 'উপজেলা পর্যায়ে প্রযুক্তি হস্তান্তরের জন্য কৃষক প্রশিক্ষণ (৩য় পর্যায়) প্রকল্প',msg:'' });
@@ -260,6 +412,52 @@ module.exports.trainedFarmerDelete=async(req,res)=>{
         res.render('errorpage',err);
     }
 };
+module.exports.trainedFarmerUpload=async(req,res)=>{
+    await trainedFarmerUpload.findAll({where: {upazilla_id: req.session.user_id},
+        order: [['createdAt', 'DESC'],],
+        attributes: ['id', 'title', 'file','year','upazilla_id', 'createdAt', 'updatedAt']})
+    .then(data => {
+        res.render('upazilla/trainedFarmer/trainedFarmerUpload', { title: 'প্রশিক্ষণপ্রাপ্ত কৃষকের তথ্য',msg:'' ,success:'',user_id: req.session.user_id,data:data});
+
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
+module.exports.trainedFarmerUploadFormPost=async(req,res)=>{
+    var title= req.body.title;
+    const path = req.file && req.file.path;
+    var user_id =req.body.user_id;
+    console.log("path",req.file,req.file.path)
+    if(path){
+        var imagePath = "/trainedFarmerUpload/" + req.file.filename;
+        await trainedFarmerUpload.create({
+                file: imagePath,
+                title:title,
+                upazilla_id:user_id
+            })
+            .then(data => {
+            res.redirect('/upazilla/trainedFarmerUpload');
+            }).catch(err => {
+            console.log("file not uploaded successfully");
+            });
+        }
+        else{
+        
+            console.log("path doesn't exist so file not uploaded successfully");
+        };
+    
+};
+module.exports.trainedFarmerUploadDelete=async(req,res)=>{
+    var trainedFarmerUploadDelete = await trainedFarmerUpload.findByPk(req.params.id);
+    try {
+        trainedFarmerUploadDelete.destroy();
+        res.redirect("/upazilla/trainedFarmerUpload");
+    }
+    catch{
+        res.render('errorpage',err);
+    }
+};
 //trainedFarmer controller end
 
 //expense controller
@@ -372,6 +570,52 @@ module.exports.expenseDelete=async(req,res)=>{
         res.render('errorpage',err);
     }
 };
+module.exports.expenseUpload=async(req,res)=>{
+    await expenseUpload.findAll({where: {upazilla_id: req.session.user_id},
+        order: [['createdAt', 'DESC'],],
+        attributes: ['id', 'title', 'file','year','upazilla_id', 'createdAt', 'updatedAt']})
+    .then(data => {
+        res.render('upazilla/expense/expenseUpload', { title: 'প্রশিক্ষণপ্রাপ্ত কৃষকের তথ্য',msg:'' ,success:'',user_id: req.session.user_id,data:data});
+
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
+module.exports.expenseUploadFormPost=async(req,res)=>{
+    var title= req.body.title;
+    const path = req.file && req.file.path;
+    var user_id =req.body.user_id;
+    console.log("path",req.file,req.file.path)
+    if(path){
+        var imagePath = "/expenseUpload/" + req.file.filename;
+        await expenseUpload.create({
+                file: imagePath,
+                title:title,
+                upazilla_id:user_id
+            })
+            .then(data => {
+            res.redirect('/upazilla/expenseUpload');
+            }).catch(err => {
+            console.log("file not uploaded successfully");
+            });
+        }
+        else{
+        
+            console.log("path doesn't exist so file not uploaded successfully");
+        };
+    
+};
+module.exports.expenseUploadDelete=async(req,res)=>{
+    var expenseUploadDelete = await expenseUpload.findByPk(req.params.id);
+    try {
+        expenseUploadDelete.destroy();
+        res.redirect("/upazilla/expenseUpload");
+    }
+    catch{
+        res.render('errorpage',err);
+    }
+};
 //expense controller end
 
 //fieldDay controller
@@ -470,6 +714,52 @@ module.exports.fieldDayDelete=async(req,res)=>{
     try {
         fieldDayDelete.destroy();
         res.redirect("/upazilla/fieldDay");
+    }
+    catch{
+        res.render('errorpage',err);
+    }
+};
+module.exports.fieldDayUpload=async(req,res)=>{
+    await fieldDayUpload.findAll({where: {upazilla_id: req.session.user_id},
+        order: [['createdAt', 'DESC'],],
+        attributes: ['id', 'title', 'file','year','upazilla_id', 'createdAt', 'updatedAt']})
+    .then(data => {
+        res.render('upazilla/fieldDay/fieldDayUpload', { title: 'প্রশিক্ষণপ্রাপ্ত কৃষকের তথ্য',msg:'' ,success:'',user_id: req.session.user_id,data:data});
+
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
+module.exports.fieldDayUploadFormPost=async(req,res)=>{
+    var title= req.body.title;
+    const path = req.file && req.file.path;
+    var user_id =req.body.user_id;
+    console.log("path",req.file,req.file.path)
+    if(path){
+        var imagePath = "/fieldDayUpload/" + req.file.filename;
+        await fieldDayUpload.create({
+                file: imagePath,
+                title:title,
+                upazilla_id:user_id
+            })
+            .then(data => {
+            res.redirect('/upazilla/fieldDayUpload');
+            }).catch(err => {
+            console.log("file not uploaded successfully");
+            });
+        }
+        else{
+        
+            console.log("path doesn't exist so file not uploaded successfully");
+        };
+    
+};
+module.exports.fieldDayUploadDelete=async(req,res)=>{
+    var fieldDayUploadDelete = await fieldDayUpload.findByPk(req.params.id);
+    try {
+        fieldDayUploadDelete.destroy();
+        res.redirect("/upazilla/fieldDayUpload");
     }
     catch{
         res.render('errorpage',err);
@@ -581,6 +871,52 @@ module.exports.demonstrationInitialDelete=async(req,res)=>{
     try {
         demonstrationInitialDelete.destroy();
         res.redirect("/upazilla/demonstrationInitial");
+    }
+    catch{
+        res.render('errorpage',err);
+    }
+};
+module.exports.demonstrationInitialUpload=async(req,res)=>{
+    await demonstrationInitialUpload.findAll({where: {upazilla_id: req.session.user_id},
+        order: [['createdAt', 'DESC'],],
+        attributes: ['id', 'title', 'file','year','upazilla_id', 'createdAt', 'updatedAt']})
+    .then(data => {
+        res.render('upazilla/demonstrationInitial/demonstrationInitialUpload', { title: 'প্রশিক্ষণপ্রাপ্ত কৃষকের তথ্য',msg:'' ,success:'',user_id: req.session.user_id,data:data});
+
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
+module.exports.demonstrationInitialUploadFormPost=async(req,res)=>{
+    var title= req.body.title;
+    const path = req.file && req.file.path;
+    var user_id =req.body.user_id;
+    console.log("path",req.file,req.file.path)
+    if(path){
+        var imagePath = "/demonstrationInitialUpload/" + req.file.filename;
+        await demonstrationInitialUpload.create({
+                file: imagePath,
+                title:title,
+                upazilla_id:user_id
+            })
+            .then(data => {
+            res.redirect('/upazilla/demonstrationInitialUpload');
+            }).catch(err => {
+            console.log("file not uploaded successfully");
+            });
+        }
+        else{
+        
+            console.log("path doesn't exist so file not uploaded successfully");
+        };
+    
+};
+module.exports.demonstrationInitialUploadDelete=async(req,res)=>{
+    var demonstrationInitialUploadDelete = await demonstrationInitialUpload.findByPk(req.params.id);
+    try {
+        demonstrationInitialUploadDelete.destroy();
+        res.redirect("/upazilla/demonstrationInitialUpload");
     }
     catch{
         res.render('errorpage',err);
@@ -705,6 +1041,52 @@ module.exports.demonstrationFinalDelete=async(req,res)=>{
         res.render('errorpage',err);
     }
 };
+module.exports.demonstrationFinalUpload=async(req,res)=>{
+    await demonstrationFinalUpload.findAll({where: {upazilla_id: req.session.user_id},
+        order: [['createdAt', 'DESC'],],
+        attributes: ['id', 'title', 'file','year','upazilla_id', 'createdAt', 'updatedAt']})
+    .then(data => {
+        res.render('upazilla/demonstrationFinal/demonstrationFinalUpload', { title: 'প্রশিক্ষণপ্রাপ্ত কৃষকের তথ্য',msg:'' ,success:'',user_id: req.session.user_id,data:data});
+
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
+module.exports.demonstrationFinalUploadFormPost=async(req,res)=>{
+    var title= req.body.title;
+    const path = req.file && req.file.path;
+    var user_id =req.body.user_id;
+    console.log("path",req.file,req.file.path)
+    if(path){
+        var imagePath = "/demonstrationFinalUpload/" + req.file.filename;
+        await demonstrationFinalUpload.create({
+                file: imagePath,
+                title:title,
+                upazilla_id:user_id
+            })
+            .then(data => {
+            res.redirect('/upazilla/demonstrationFinalUpload');
+            }).catch(err => {
+            console.log("file not uploaded successfully");
+            });
+        }
+        else{
+        
+            console.log("path doesn't exist so file not uploaded successfully");
+        };
+    
+};
+module.exports.demonstrationFinalUploadDelete=async(req,res)=>{
+    var demonstrationFinalUploadDelete = await demonstrationFinalUpload.findByPk(req.params.id);
+    try {
+        demonstrationFinalUploadDelete.destroy();
+        res.redirect("/upazilla/demonstrationFinalUpload");
+    }
+    catch{
+        res.render('errorpage',err);
+    }
+};
 //demonstrationFinal controller end
 
 //kormoshuchi controller
@@ -803,6 +1185,52 @@ module.exports.kormoshuchiDelete=async(req,res)=>{
     try {
         kormoshuchiDelete.destroy();
         res.redirect("/upazilla/kormoshuchi");
+    }
+    catch{
+        res.render('errorpage',err);
+    }
+};
+module.exports.kormoshuchiUpload=async(req,res)=>{
+    await kormoshuchiUpload.findAll({where: {upazilla_id: req.session.user_id},
+        order: [['createdAt', 'DESC'],],
+        attributes: ['id', 'title', 'file','year','upazilla_id', 'createdAt', 'updatedAt']})
+    .then(data => {
+        res.render('upazilla/kormoshuchi/kormoshuchiUpload', { title: 'প্রশিক্ষণপ্রাপ্ত কৃষকের তথ্য',msg:'' ,success:'',user_id: req.session.user_id,data:data});
+
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
+module.exports.kormoshuchiUploadFormPost=async(req,res)=>{
+    var title= req.body.title;
+    const path = req.file && req.file.path;
+    var user_id =req.body.user_id;
+    console.log("path",req.file,req.file.path)
+    if(path){
+        var imagePath = "/kormoshuchiUpload/" + req.file.filename;
+        await kormoshuchiUpload.create({
+                file: imagePath,
+                title:title,
+                upazilla_id:user_id
+            })
+            .then(data => {
+            res.redirect('/upazilla/kormoshuchiUpload');
+            }).catch(err => {
+            console.log("file not uploaded successfully");
+            });
+        }
+        else{
+        
+            console.log("path doesn't exist so file not uploaded successfully");
+        };
+    
+};
+module.exports.kormoshuchiUploadDelete=async(req,res)=>{
+    var kormoshuchiUploadDelete = await kormoshuchiUpload.findByPk(req.params.id);
+    try {
+        kormoshuchiUploadDelete.destroy();
+        res.redirect("/upazilla/kormoshuchiUpload");
     }
     catch{
         res.render('errorpage',err);
@@ -914,6 +1342,52 @@ module.exports.noaDelete=async(req,res)=>{
     try {
         noaDelete.destroy();
         res.redirect("/upazilla/noa");
+    }
+    catch{
+        res.render('errorpage',err);
+    }
+};
+module.exports.noaUpload=async(req,res)=>{
+    await noaUpload.findAll({where: {upazilla_id: req.session.user_id},
+        order: [['createdAt', 'DESC'],],
+        attributes: ['id', 'title', 'file','year','upazilla_id', 'createdAt', 'updatedAt']})
+    .then(data => {
+        res.render('upazilla/noa/noaUpload', { title: 'প্রশিক্ষণপ্রাপ্ত কৃষকের তথ্য',msg:'' ,success:'',user_id: req.session.user_id,data:data});
+
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
+module.exports.noaUploadFormPost=async(req,res)=>{
+    var title= req.body.title;
+    const path = req.file && req.file.path;
+    var user_id =req.body.user_id;
+    console.log("path",req.file,req.file.path)
+    if(path){
+        var imagePath = "/noaUpload/" + req.file.filename;
+        await noaUpload.create({
+                file: imagePath,
+                title:title,
+                upazilla_id:user_id
+            })
+            .then(data => {
+            res.redirect('/upazilla/noaUpload');
+            }).catch(err => {
+            console.log("file not uploaded successfully");
+            });
+        }
+        else{
+        
+            console.log("path doesn't exist so file not uploaded successfully");
+        };
+    
+};
+module.exports.noaUploadDelete=async(req,res)=>{
+    var noaUploadDelete = await noaUpload.findByPk(req.params.id);
+    try {
+        noaUploadDelete.destroy();
+        res.redirect("/upazilla/noaUpload");
     }
     catch{
         res.render('errorpage',err);
@@ -1032,6 +1506,52 @@ module.exports.progressDelete=async(req,res)=>{
         res.render('errorpage',err);
     }
 };
+module.exports.progressUpload=async(req,res)=>{
+    await progressUpload.findAll({where: {upazilla_id: req.session.user_id},
+        order: [['createdAt', 'DESC'],],
+        attributes: ['id', 'title', 'file','year','upazilla_id', 'createdAt', 'updatedAt']})
+    .then(data => {
+        res.render('upazilla/progress/progressUpload', { title: 'প্রশিক্ষণপ্রাপ্ত কৃষকের তথ্য',msg:'' ,success:'',user_id: req.session.user_id,data:data});
+
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
+module.exports.progressUploadFormPost=async(req,res)=>{
+    var title= req.body.title;
+    const path = req.file && req.file.path;
+    var user_id =req.body.user_id;
+    console.log("path",req.file,req.file.path)
+    if(path){
+        var imagePath = "/progressUpload/" + req.file.filename;
+        await progressUpload.create({
+                file: imagePath,
+                title:title,
+                upazilla_id:user_id
+            })
+            .then(data => {
+            res.redirect('/upazilla/progressUpload');
+            }).catch(err => {
+            console.log("file not uploaded successfully");
+            });
+        }
+        else{
+        
+            console.log("path doesn't exist so file not uploaded successfully");
+        };
+    
+};
+module.exports.progressUploadDelete=async(req,res)=>{
+    var progressUploadDelete = await progressUpload.findByPk(req.params.id);
+    try {
+        progressUploadDelete.destroy();
+        res.redirect("/upazilla/progressUpload");
+    }
+    catch{
+        res.render('errorpage',err);
+    }
+};
 //progress controller end
 
 //vermiCompostInitial controller
@@ -1138,6 +1658,52 @@ module.exports.vermiCompostInitialDelete=async(req,res)=>{
     try {
         vermiCompostInitialDelete.destroy();
         res.redirect("/upazilla/vermiCompostInitial");
+    }
+    catch{
+        res.render('errorpage',err);
+    }
+};
+module.exports.vermiCompostInitialUpload=async(req,res)=>{
+    await vermiCompostInitialUpload.findAll({where: {upazilla_id: req.session.user_id},
+        order: [['createdAt', 'DESC'],],
+        attributes: ['id', 'title', 'file','year','upazilla_id', 'createdAt', 'updatedAt']})
+    .then(data => {
+        res.render('upazilla/vermiCompostInitial/vermiCompostInitialUpload', { title: 'প্রশিক্ষণপ্রাপ্ত কৃষকের তথ্য',msg:'' ,success:'',user_id: req.session.user_id,data:data});
+
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
+module.exports.vermiCompostInitialUploadFormPost=async(req,res)=>{
+    var title= req.body.title;
+    const path = req.file && req.file.path;
+    var user_id =req.body.user_id;
+    console.log("path",req.file,req.file.path)
+    if(path){
+        var imagePath = "/vermiCompostInitialUpload/" + req.file.filename;
+        await vermiCompostInitialUpload.create({
+                file: imagePath,
+                title:title,
+                upazilla_id:user_id
+            })
+            .then(data => {
+            res.redirect('/upazilla/vermiCompostInitialUpload');
+            }).catch(err => {
+            console.log("file not uploaded successfully");
+            });
+        }
+        else{
+        
+            console.log("path doesn't exist so file not uploaded successfully");
+        };
+    
+};
+module.exports.vermiCompostInitialUploadDelete=async(req,res)=>{
+    var vermiCompostInitialUploadDelete = await vermiCompostInitialUpload.findByPk(req.params.id);
+    try {
+        vermiCompostInitialUploadDelete.destroy();
+        res.redirect("/upazilla/vermiCompostInitialUpload");
     }
     catch{
         res.render('errorpage',err);
@@ -1257,6 +1823,52 @@ module.exports.vermiCompostFinalDelete=async(req,res)=>{
     try {
         vermiCompostFinalDelete.destroy();
         res.redirect("/upazilla/vermiCompostFinal");
+    }
+    catch{
+        res.render('errorpage',err);
+    }
+};
+module.exports.vermiCompostFinalUpload=async(req,res)=>{
+    await vermiCompostFinalUpload.findAll({where: {upazilla_id: req.session.user_id},
+        order: [['createdAt', 'DESC'],],
+        attributes: ['id', 'title', 'file','year','upazilla_id', 'createdAt', 'updatedAt']})
+    .then(data => {
+        res.render('upazilla/vermiCompostFinal/vermiCompostFinalUpload', { title: 'প্রশিক্ষণপ্রাপ্ত কৃষকের তথ্য',msg:'' ,success:'',user_id: req.session.user_id,data:data});
+
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
+module.exports.vermiCompostFinalUploadFormPost=async(req,res)=>{
+    var title= req.body.title;
+    const path = req.file && req.file.path;
+    var user_id =req.body.user_id;
+    console.log("path",req.file,req.file.path)
+    if(path){
+        var imagePath = "/vermiCompostFinalUpload/" + req.file.filename;
+        await vermiCompostFinalUpload.create({
+                file: imagePath,
+                title:title,
+                upazilla_id:user_id
+            })
+            .then(data => {
+            res.redirect('/upazilla/vermiCompostFinalUpload');
+            }).catch(err => {
+            console.log("file not uploaded successfully");
+            });
+        }
+        else{
+        
+            console.log("path doesn't exist so file not uploaded successfully");
+        };
+    
+};
+module.exports.vermiCompostFinalUploadDelete=async(req,res)=>{
+    var vermiCompostFinalUploadDelete = await vermiCompostFinalUpload.findByPk(req.params.id);
+    try {
+        vermiCompostFinalUploadDelete.destroy();
+        res.redirect("/upazilla/vermiCompostFinalUpload");
     }
     catch{
         res.render('errorpage',err);

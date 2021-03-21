@@ -1,0 +1,108 @@
+<%- include('../../includes/header')-%>
+        <div class="wrapper">
+          <%- include('../../includes/topbar')-%>
+            <div class="page-wrap">
+              <%- include('../../includes/sidebar')-%>
+              <div class="main-content">
+                <div class="container-fluid">
+                    <div class="row clearfix">
+                    <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                <div class="panel-title"><h2>কৃষক প্রশিক্ষণ তথ্য ফর্ম</h2></div>
+                                <p><%
+                                if(success !=''){ %>
+                                <%= success %>
+                                    <% } %>
+                                </p>
+                                </div>  
+                                
+                                <div class="container gallery-container">
+                                    <!-- <h1 text-align:center>নোটিশ বোর্ড</h1> -->
+                                    <form action="/upazilla/kormoshuchiUploadFormPost" id="FieldTrialForm" class="form-horizontal" method="post"  role="form" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label >নতুন ফাইলের বিষয়</label>
+                                            <input type="text" id="title" class="form-control" name="title" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label >নতুন ফাইল আপ্লোড করুন</label>
+                                            <input type="file" id="filename" class="form-control" name="kormoshuchiUpload" required>
+                                        </div>
+                                        <input type="hidden" class="form-control" name="user_id" placeholder="id" value="<%= user_id %>">
+                                                    
+                                                    
+                                 <div class="form-group">
+                                            <!-- Button -->                                        
+                                  <div class="col-md-offset-3 col-md-3">
+                                    <input type="submit" name="submit" value="আপ্লোড" class="btn btn-primary">   
+                                </div>
+                                </form>
+        
+                                    <div><br><br></div>
+                                    <div class="tz-gallery">
+                                        <div class="row">
+                                            <%if (data.length >0){ %>
+                                                <table class="table table-bordered table-striped" id="tblCustomers" cellspacing="0" cellpadding="0">
+                                                <thead>
+                                                <tr>
+                                                    <th>ক্রমিক নং</th>
+                                                    <th>টাইটেল</th>
+                                                    <th>ফাইল</th>
+                                                    <th>মুছুন</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% data.forEach(function(row,index){ %>
+                                                        <tr>
+                                                            <td><%= index+1 %></td>
+                                                            <td><%= row.title %></td>
+                                                            <td><a  href="<%= row.file %>"><i class="fas fa-file"></i>
+                                                            </a></td>
+                                                            <td>
+                                                                <a class="btn btn-danger btn-xs" href="/upazilla/kormoshuchiUploadDelete/<%= row.id %>"><i class="fa fa-trash"></i></a>
+                                                            </td>
+                                                        </tr>
+                                                    <% }) %>
+                                                </tbody>
+                                            </table>
+                                            <% }else{ %>
+                                                <table class="table table-bordered table-striped" id="tblexportData" cellspacing="0" cellpadding="0">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>ক্রমিক নং</th>
+                                                        <th>টাইটেল</th>
+                                                        <th>ফাইল</th>
+                                                        <th>মুছুন</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <% data.forEach(function(row){ %>
+                                                        <tr>
+                                                            <td colspan="10">No data Found</td>
+                                                        </tr>
+                                                    <% }) %>
+                                                    </tbody>
+                                                </table>
+                                            <% } %>
+                                            
+        
+                                        </div>
+                                
+                                    </div>
+                                
+                                </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include('../../includes/footer')-%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+                        <script>
+                            baguetteBox.run('.tz-gallery');
+                        </script>
