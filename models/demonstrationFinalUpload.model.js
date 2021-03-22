@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const demonstrationFinalUpload = sequelize.define("demonstrationFinalupload", {
+    const demonstrationFinalUpload = sequelize.define("demonstrationfinalupload", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,

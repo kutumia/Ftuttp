@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const vermiCompostInitialUpload = sequelize.define("vermiCompostInitialupload", {
+    const vermiCompostInitialUpload = sequelize.define("vermiCompostinitialupload", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,

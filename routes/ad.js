@@ -10,7 +10,7 @@ const {adsignup,adsignuppost,adlogin,adloginpost,adDashboard,
     vermiCompostInitial,vermiCompostInitialFilter,vermiCompostInitialDistrictFilter,
     vermiCompostFinal,vermiCompostFinalFilter,vermiCompostFinalDistrictFilter,
     expense,expenseFilter,expenseDistrictFilter,
-    fieldDay,fieldDayFilter,fieldDayDistrictFilter,
+    fieldDay,fieldDayFilter,fieldDayDistrictFilter,progressUpload,uploadprogressImage,progressUploadFormPost,progressUploadDelete,
     kormoshuchi,kormoshuchiFilter,kormoshuchiDistrictFilter,
     noa,noaFilter,noaDistrictFilter,
     progress,progressYear,progressForm,progressFormPost,
@@ -68,6 +68,9 @@ const {adsignup,adsignuppost,adlogin,adloginpost,adDashboard,
     router.get('/progressFormEdit/:id',progressFormEdit);
     router.post('/progressFormEditPost/:id',progressFormEditPost);
     router.get('/progressDelete/:id',progressDelete);
+    router.get('/progressUpload',progressUpload);
+router.post('/progressUploadFormPost',uploadprogressImage,progressUploadFormPost);
+router.get('/progressUploadDelete/:id',progressUploadDelete);
 
     
     

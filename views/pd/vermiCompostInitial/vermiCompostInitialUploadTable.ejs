@@ -1,0 +1,39 @@
+<%if (records.length >0){ %>
+    <table class="table table-bordered table-striped" id="tblCustomers" cellspacing="0" cellpadding="0">
+    <thead>
+    <tr>
+        <th>ক্রমিক নং</th>
+        <th>টাইটেল</th>
+        <th>ফাইল</th>
+    </tr>
+    </thead>
+    <tbody>
+        <% records.forEach(function(row,index){ %>
+            <tr>
+                <td><%= index+1 %></td>
+                <td><%= row.title %></td>
+                <td><a  href="<%= row.file %>"><i class="fas fa-file"></i>
+                </a></td>
+       
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+<% }else{ %>
+    <table class="table table-bordered table-striped" id="tblexportData" cellspacing="0" cellpadding="0">
+        <thead>
+        <tr>
+            <th>ক্রমিক নং</th>
+            <th>টাইটেল</th>
+            <th>ফাইল</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% records.forEach(function(row){ %>
+            <tr>
+                <td colspan="10">No data Found</td>
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+<% } %>

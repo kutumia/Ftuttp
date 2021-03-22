@@ -14,6 +14,15 @@ const kormoshuchi = db.kormoshuchi;
 const noa = db.noa;
 const progress = db.progress;
 const trainedFarmerUpload = db.trainedFarmerUpload;
+const expenseUpload = db.expenseUpload;
+const fieldDayUpload = db.fieldDayUpload;
+const demonstrationInitialUpload = db.demonstrationInitialUpload;
+const demonstrationFinalUpload = db.demonstrationFinalUpload;
+const vermiCompostInitialUpload = db.vermiCompostInitialUpload;
+const vermiCompostFinalUpload = db.vermiCompostFinalUpload;
+const kormoshuchiUpload = db.kormoshuchiUpload;
+const noaUpload = db.noaUpload;
+const progressUpload = db.progressUpload;
 
 const multer = require("multer");
 const path = require("path");
@@ -428,12 +437,14 @@ module.exports.trainedFarmerUploadFormPost=async(req,res)=>{
     var title= req.body.title;
     const path = req.file && req.file.path;
     var user_id =req.body.user_id;
+    var year =req.body.year;
     console.log("path",req.file,req.file.path)
     if(path){
         var imagePath = "/trainedFarmerUpload/" + req.file.filename;
         await trainedFarmerUpload.create({
                 file: imagePath,
                 title:title,
+                year:year,
                 upazilla_id:user_id
             })
             .then(data => {
@@ -586,12 +597,14 @@ module.exports.expenseUploadFormPost=async(req,res)=>{
     var title= req.body.title;
     const path = req.file && req.file.path;
     var user_id =req.body.user_id;
+    var year =req.body.year;
     console.log("path",req.file,req.file.path)
     if(path){
         var imagePath = "/expenseUpload/" + req.file.filename;
         await expenseUpload.create({
                 file: imagePath,
                 title:title,
+                year:year,
                 upazilla_id:user_id
             })
             .then(data => {
@@ -735,12 +748,14 @@ module.exports.fieldDayUploadFormPost=async(req,res)=>{
     var title= req.body.title;
     const path = req.file && req.file.path;
     var user_id =req.body.user_id;
+    var year =req.body.year;
     console.log("path",req.file,req.file.path)
     if(path){
         var imagePath = "/fieldDayUpload/" + req.file.filename;
         await fieldDayUpload.create({
                 file: imagePath,
                 title:title,
+                year:year,
                 upazilla_id:user_id
             })
             .then(data => {
@@ -892,12 +907,14 @@ module.exports.demonstrationInitialUploadFormPost=async(req,res)=>{
     var title= req.body.title;
     const path = req.file && req.file.path;
     var user_id =req.body.user_id;
+    var year =req.body.year;
     console.log("path",req.file,req.file.path)
     if(path){
         var imagePath = "/demonstrationInitialUpload/" + req.file.filename;
         await demonstrationInitialUpload.create({
                 file: imagePath,
                 title:title,
+                year:year,
                 upazilla_id:user_id
             })
             .then(data => {
@@ -1057,12 +1074,14 @@ module.exports.demonstrationFinalUploadFormPost=async(req,res)=>{
     var title= req.body.title;
     const path = req.file && req.file.path;
     var user_id =req.body.user_id;
+    var year =req.body.year;
     console.log("path",req.file,req.file.path)
     if(path){
         var imagePath = "/demonstrationFinalUpload/" + req.file.filename;
         await demonstrationFinalUpload.create({
                 file: imagePath,
                 title:title,
+                year:year,
                 upazilla_id:user_id
             })
             .then(data => {
@@ -1206,12 +1225,14 @@ module.exports.kormoshuchiUploadFormPost=async(req,res)=>{
     var title= req.body.title;
     const path = req.file && req.file.path;
     var user_id =req.body.user_id;
+    var year =req.body.year;
     console.log("path",req.file,req.file.path)
     if(path){
         var imagePath = "/kormoshuchiUpload/" + req.file.filename;
         await kormoshuchiUpload.create({
                 file: imagePath,
                 title:title,
+                year:year,
                 upazilla_id:user_id
             })
             .then(data => {
@@ -1363,12 +1384,14 @@ module.exports.noaUploadFormPost=async(req,res)=>{
     var title= req.body.title;
     const path = req.file && req.file.path;
     var user_id =req.body.user_id;
+    var year =req.body.year;
     console.log("path",req.file,req.file.path)
     if(path){
         var imagePath = "/noaUpload/" + req.file.filename;
         await noaUpload.create({
                 file: imagePath,
                 title:title,
+                year:year,
                 upazilla_id:user_id
             })
             .then(data => {
@@ -1522,12 +1545,14 @@ module.exports.progressUploadFormPost=async(req,res)=>{
     var title= req.body.title;
     const path = req.file && req.file.path;
     var user_id =req.body.user_id;
+    var year =req.body.year;
     console.log("path",req.file,req.file.path)
     if(path){
         var imagePath = "/progressUpload/" + req.file.filename;
         await progressUpload.create({
                 file: imagePath,
                 title:title,
+                year:year,
                 upazilla_id:user_id
             })
             .then(data => {
@@ -1679,12 +1704,14 @@ module.exports.vermiCompostInitialUploadFormPost=async(req,res)=>{
     var title= req.body.title;
     const path = req.file && req.file.path;
     var user_id =req.body.user_id;
+    var year =req.body.year;
     console.log("path",req.file,req.file.path)
     if(path){
         var imagePath = "/vermiCompostInitialUpload/" + req.file.filename;
         await vermiCompostInitialUpload.create({
                 file: imagePath,
                 title:title,
+                year:year,
                 upazilla_id:user_id
             })
             .then(data => {
@@ -1844,12 +1871,14 @@ module.exports.vermiCompostFinalUploadFormPost=async(req,res)=>{
     var title= req.body.title;
     const path = req.file && req.file.path;
     var user_id =req.body.user_id;
+    var year =req.body.year;
     console.log("path",req.file,req.file.path)
     if(path){
         var imagePath = "/vermiCompostFinalUpload/" + req.file.filename;
         await vermiCompostFinalUpload.create({
                 file: imagePath,
                 title:title,
+                year:year,
                 upazilla_id:user_id
             })
             .then(data => {

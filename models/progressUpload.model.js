@@ -14,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
       year: {
         type: Sequelize.STRING
       },
-      upazilla_id: {
+      ad_id: {
         type: Sequelize.INTEGER
       }
     });

@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const demonstrationInitialUpload = sequelize.define("demonstrationInitialupload", {
+    const demonstrationInitialUpload = sequelize.define("demonstrationinitialupload", {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,

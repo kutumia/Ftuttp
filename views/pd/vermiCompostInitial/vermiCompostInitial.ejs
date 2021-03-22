@@ -16,8 +16,8 @@
                                     <%if (district.length >0){ %>
                                         <div class="col-md-3">
                                             <label for="district"> বাছুন:</label>
-                                            <select id="district" name="district">
-                                                <option value="">জেলা বাছুন:</option>
+                                                <select id="district" name="district">
+                                                    <option value="">জেলা বাছুন:</option>
                                                     <% district.forEach(function(row){ %>
                                                         <option value="<%= row.id %>"><%= row.district %></option>
                                                     <% }) %>
@@ -32,7 +32,7 @@
                                             </div>
                                         </div>
                                         
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <label for="year">বছর বাছুন:</label>
                                         <select id="year" name="year">
                                             <option value="2017">২০১৭-১৮</option>
@@ -44,25 +44,22 @@
                                             <option value="2023">২০২৩-২৪</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <!-- Button -->                                        
                                         <div>
                                         <input type="submit" id="submit" name="submit" value="রিপোর্ট দেখুন" class="btn btn-primary">   
                                         </div>
                                     </div>
+                                    <div class="col-md-2">
+                                        <a href="/pd/vermiCompostInitialUpload" class="btn btn-success btn-group-sm ">প্রাথমিক প্রতিবেদন তথ্যের ফাইলসমূহ</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="row mb-2">
-                            <div class="col-md-12">
-                                <a href="/upazilla/demonstrationInitialForm" class="btn btn-success btn-group-sm ">প্রশিক্ষণপ্রাপ্ত কৃষকের তথ্য ফর্ম</a>
-                            </div>
-
-                        </div> -->
+                     
 
                         <div class="table-responsive" id="output"></div>
 
-                        <input type="button" id="btnExport" value="Download PDF" />
 
                         <div id="output"></div>
         <!--                    <div id="loading" class="loading"><img src="{{ asset('assets/img/icon/loading.gif') }}" alt=""></div>-->
@@ -107,7 +104,7 @@
         var district = $('#district').val();
         $.ajax({
             type: "POST",
-            url: "/pd/demonstrationInitialDistrictFilter",
+            url: "/pd/vermiCompostInitialDistrictFilter",
             data: {district: district},
             datatype: "json",
             beforeSend: function() {
@@ -142,7 +139,7 @@
         var upazilla = $('#upazilla').val();
         $.ajax({
             type: "POST",
-            url: "/pd/demonstrationInitialFilter",
+            url: "/pd/vermiCompostInitialFilter",
             data: {year: year,upazilla:upazilla},
             datatype: "json",
             beforeSend: function() {
@@ -167,7 +164,7 @@
         var upazilla = $('#upazilla').val();
         $.ajax({
             type: "POST",
-            url: "/pd/demonstrationInitialFilter",
+            url: "/pd/vermiCompostInitialFilter",
             data: {year: year,upazilla:upazilla},
             datatype: "json",
             beforeSend: function() {

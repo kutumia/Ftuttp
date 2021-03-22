@@ -13,12 +13,35 @@ const vermiCompostFinal = db.vermiCompostFinal;
 const kormoshuchi = db.kormoshuchi;
 const noa = db.noa;
 const progress = db.progress;
+const progressUpload = db.progressUpload;
+
+const multer = require("multer");
+const path = require("path");
+const fs = require("fs");
+let pdf = require("html-pdf");
+let ejs = require("ejs");
 
 const jwt= require('jsonwebtoken');
 const bcrypt= require('bcryptjs'); 
 
 const { request, response } = require('express');
 const express = require('express');
+
+//multer setup for progressUpload image
+var storageImage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/progressUpload');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    },
+  });  
+var uploadprogressImage = multer({
+    storage: storageImage,
+ }).single("progressUpload");
+ exports.uploadprogressImage=uploadprogressImage;
+ //multer setup for dashImage image ends
+
 
 module.exports.adlogin=async(req,res)=>{
     res.render('ad/login', { title: 'উপজেলা পর্যায়ে প্রযুক্তি হস্তান্তরের জন্য কৃষক প্রশিক্ষণ (৩য় পর্যায়) প্রকল্প',msg:'' });
@@ -577,6 +600,54 @@ module.exports.progressDelete=async(req,res)=>{
     try {
         progressDelete.destroy();
         res.redirect("/ad/progress");
+    }
+    catch{
+        res.render('errorpage',err);
+    }
+};
+module.exports.progressUpload=async(req,res)=>{
+    await progressUpload.findAll({where: {upazilla_id: req.session.user_id},
+        order: [['createdAt', 'DESC'],],
+        attributes: ['id', 'title', 'file','year','upazilla_id', 'createdAt', 'updatedAt']})
+    .then(data => {
+        res.render('ad/progress/progressUpload', { title: 'চলমান কার্যক্রমের অগ্রগতি',msg:'' ,success:'',user_id: req.session.user_id,data:data});
+
+    })
+    .catch(err => {
+        console.log(err);
+    })
+};
+module.exports.progressUploadFormPost=async(req,res)=>{
+    var title= req.body.title;
+    const path = req.file && req.file.path;
+    var user_id =req.body.user_id;
+    var year =req.body.year;
+    console.log("path",req.file,req.file.path)
+    if(path){
+        var imagePath = "/progressUpload/" + req.file.filename;
+        await progressUpload.create({
+                file: imagePath,
+                title:title,
+                year:year,
+                upazilla_id:user_id
+            })
+            .then(data => {
+            res.redirect('/ad/progressUpload');
+            }).catch(err => {
+            console.log("file not uploaded successfully");
+            });
+        }
+        else{
+        
+            console.log("path doesn't exist so file not uploaded successfully");
+        };
+    
+};
+module.exports.progressUploadDelete=async(req,res)=>{
+    var progressUploadDelete = await progressUpload.findByPk(req.params.id);
+    try {
+        progressUploadDelete.destroy();
+        res.redirect("/ad/progressUpload");
     }
     catch{
         res.render('errorpage',err);

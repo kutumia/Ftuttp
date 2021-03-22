@@ -34,5 +34,14 @@ db.kormoshuchi = require("./kormoshuchi.model.js")(sequelize, Sequelize);
 db.progress = require("./progress.model.js")(sequelize, Sequelize);
 db.noa = require("./noa.model.js")(sequelize, Sequelize);
 db.trainedFarmerUpload = require("./trainedFarmerUpload.model.js")(sequelize, Sequelize);
+db.expenseUpload = require("./expenseUpload.model.js")(sequelize, Sequelize);
+db.fieldDayUpload = require("./fieldDayUpload.model.js")(sequelize, Sequelize);
+db.demonstrationFinalUpload = require("./demonstrationFinalUpload.model.js")(sequelize, Sequelize);
+db.demonstrationInitialUpload = require("./demonstrationInitialUpload.model.js")(sequelize, Sequelize);
+db.vermiCompostFinalUpload = require("./vermiCompostFinalUpload.model.js")(sequelize, Sequelize);
+db.vermiCompostInitialUpload = require("./vermiCompostInitialUpload.model.js")(sequelize, Sequelize);
+db.kormoshuchiUpload = require("./kormoshuchiUpload.model.js")(sequelize, Sequelize);
+db.progressUpload = require("./progressUpload.model.js")(sequelize, Sequelize);
+db.noaUpload = require("./noaUpload.model.js")(sequelize, Sequelize);
 
 module.exports = db;

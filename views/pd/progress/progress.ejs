@@ -15,8 +15,9 @@
                                 <div class="row clearfix">
                                     <%if (district.length >0){ %>
                                         <div class="col-md-3">
-                                            <label for="district">অঞ্চল বাছুন:</label>
+                                            <label for="district">বাছুন:</label>
                                                 <select id="district" name="district">
+                                                    <option value="">অঞ্চল বাছুন</option>
                                                     <% district.forEach(function(row){ %>
                                                         <option value="<%= row.id %>"><%= row.area %></option>
                                                     <% }) %>
@@ -28,6 +29,9 @@
                                         <div>
                                         <input type="submit" id="submit" name="submit" value="রিপোর্ট দেখুন" class="btn btn-primary">   
                                         </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a href="/pd/progressUpload" class="btn btn-success btn-group-sm ">চলমান কার্যক্রমের অগ্রগতি তথ্যের ফাইলসমূহ</a>
                                     </div>
                                 </div>
                             </div>
@@ -41,7 +45,6 @@
 
                         <div class="table-responsive" id="output"></div>
 
-                        <input type="button" id="btnExport" value="Download PDF" />
 
                         <div id="output"></div>
         <!--                    <div id="loading" class="loading"><img src="{{ asset('assets/img/icon/loading.gif') }}" alt=""></div>-->

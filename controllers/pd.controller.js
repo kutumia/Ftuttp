@@ -13,6 +13,16 @@ const fieldDay = db.fieldDay;
 const kormoshuchi = db.kormoshuchi;
 const noa = db.noa;
 const progress = db.progress;
+const trainedFarmerUpload = db.trainedFarmerUpload;
+const expenseUpload = db.expenseUpload;
+const fieldDayUpload = db.fieldDayUpload;
+const demonstrationInitialUpload = db.demonstrationInitialUpload;
+const demonstrationFinalUpload = db.demonstrationFinalUpload;
+const vermiCompostInitialUpload = db.vermiCompostInitialUpload;
+const vermiCompostFinalUpload = db.vermiCompostFinalUpload;
+const kormoshuchiUpload = db.kormoshuchiUpload;
+const noaUpload = db.noaUpload;
+const progressUpload = db.progressUpload;
 
 const jwt= require('jsonwebtoken');
 const bcrypt= require('bcryptjs'); 
@@ -144,7 +154,6 @@ module.exports.trainedFarmer=async(req,res)=>{
     }
     catch(err){
         console.log("outside",err);
-        res.render('pd/trainedFarmer/trainedFarmer', { title: 'প্রশিক্ষণপ্রাপ্ত কৃষকের তথ্য',success:''});
     }
      
     //  records:result
@@ -161,8 +170,7 @@ module.exports.trainedFarmerFilter=async(req,res)=>{
         });
     })
     .catch(err => {
-        res.render('pd/trainedFarmer/trainedFarmerYear', { title: 'প্রশিক্ষণপ্রাপ্ত কৃষকের তথ্য',success:'', records: err });
-    })
+        console.log("outside",err);    })
 
 };
 
@@ -174,8 +182,47 @@ module.exports.trainedFarmerDistrictFilter=async(req,res)=>{
         res.send(upazillass)
     }
     catch(err){
+        console.log(err);    }
+     
+
+};
+module.exports.trainedFarmerUpload=async(req,res)=>{
+    try{
+        var districts=await dd.findAll();
+        console.log("inside");
+        res.render('pd/trainedFarmer/trainedFarmerUpload', { title: 'প্রশিক্ষণপ্রাপ্ত কৃষকের তথ্য',success:'',district:districts });
+    }
+    catch(err){
         console.log("outside",err);
-        res.render('pd/trainedFarmer/trainedFarmer', { title: 'প্রশিক্ষণপ্রাপ্ত কৃষকের তথ্য',success:'', upazillas:err });
+    }
+     
+    //  records:result
+
+};
+
+module.exports.trainedFarmerUploadFilter=async(req,res)=>{
+    await trainedFarmerUpload.findAll({ 
+        where: {year: req.body.year,upazilla_id: req.body.upazilla}
+    })
+    .then(data => {
+        res.render('pd/trainedFarmer/trainedFarmerUploadTable', {records: data} ,function(err, html) {
+            res.send(html);
+        });
+    })
+    .catch(err => {
+        console.log(err);     })
+
+};
+
+module.exports.trainedFarmerUploadDistrictFilter=async(req,res)=>{
+    try{
+        // var dds=await dd.findAll({where: {id: req.body.district}});
+        var upazillass=await upazilla.findAll({where: {dd_id: req.body.district}});
+        console.log("inside");
+        res.send(upazillass)
+    }
+    catch(err){
+        console.log(err); 
     }
      
 
@@ -190,8 +237,7 @@ module.exports.demonstrationInitial=async(req,res)=>{
         res.render('pd/demonstrationInitial/demonstrationInitial', { title: 'প্রদর্শনীর (দানাদার ধরণের) প্রাথমিক প্রতিবেদন',success:'',district:districts });
     }
     catch(err){
-        console.log("outside",err);
-        res.render('pd/demonstrationInitial/demonstrationInitial', { title: 'প্রদর্শনীর (দানাদার ধরণের) প্রাথমিক প্রতিবেদন',success:''});
+        console.log(err); 
     }
      
     //  records:result
@@ -208,7 +254,7 @@ module.exports.demonstrationInitialFilter=async(req,res)=>{
         });
     })
     .catch(err => {
-        res.render('pd/demonstrationInitial/demonstrationInitialYear', { title: 'প্রদর্শনীর (দানাদার ধরণের) প্রাথমিক প্রতিবেদন',success:'', records: err });
+        console.log(err); 
     })
 
 };
@@ -221,13 +267,54 @@ module.exports.demonstrationInitialDistrictFilter=async(req,res)=>{
         res.send(upazillass)
     }
     catch(err){
-        console.log("outside",err);
-        res.render('pd/demonstrationInitial/demonstrationInitial', { title: 'প্রদর্শনীর (দানাদার ধরণের) প্রাথমিক প্রতিবেদন',success:'', upazillas:err });
+        console.log(err); 
     }
      
 
 };
-//demonstrationInitial controller end
+module.exports.demonstrationInitialUpload=async(req,res)=>{
+    try{
+        var districts=await dd.findAll();
+        console.log("inside");
+        res.render('pd/demonstrationInitial/demonstrationInitialUpload', { title: 'প্রদর্শনীর (দানাদার ধরণের) প্রাথমিক প্রতিবেদন',success:'',district:districts });
+    }
+    catch(err){
+        console.log(err); 
+    }
+     
+    //  records:result
+
+};
+
+ module.exports.demonstrationInitialUploadFilter=async(req,res)=>{
+    await demonstrationInitialUpload.findAll({ 
+        where: {year: req.body.year,upazilla_id: req.body.upazilla}
+    })
+    .then(data => {
+        res.render('pd/demonstrationInitial/demonstrationInitialUploadTable', {records: data} ,function(err, html) {
+            res.send(html);
+        });
+    })
+    .catch(err => {
+        console.log(err); 
+    })
+
+};
+
+module.exports.demonstrationInitialUploadDistrictFilter=async(req,res)=>{
+    try{
+        // var dds=await dd.findAll({where: {id: req.body.district}});
+        var upazillass=await upazilla.findAll({where: {dd_id: req.body.district}});
+        console.log("inside");
+        res.send(upazillass)
+    }
+    catch(err){
+        console.log(err); 
+    }
+     
+
+};
+//demonstrationInitialUpload controller end
 
 //demonstrationFinal controller
 module.exports.demonstrationFinal=async(req,res)=>{
@@ -237,8 +324,7 @@ module.exports.demonstrationFinal=async(req,res)=>{
         res.render('pd/demonstrationFinal/demonstrationFinal', { title: 'প্রদর্শনীর (দানাদার ধরণের) চূড়ান্ত প্রতিবেদন',success:'',district:districts });
     }
     catch(err){
-        console.log("outside",err);
-        res.render('pd/demonstrationFinal/demonstrationFinal', { title: 'প্রদর্শনীর (দানাদার ধরণের) চূড়ান্ত প্রতিবেদন',success:''});
+        console.log(err); 
     }
      
     //  records:result
@@ -255,7 +341,7 @@ module.exports.demonstrationFinalFilter=async(req,res)=>{
         });
     })
     .catch(err => {
-        res.render('pd/demonstrationFinal/demonstrationFinalYear', { title: 'প্রদর্শনীর (দানাদার ধরণের) চূড়ান্ত প্রতিবেদন',success:'', records: err });
+        console.log(err); 
     })
 
 };
@@ -268,13 +354,54 @@ module.exports.demonstrationFinalDistrictFilter=async(req,res)=>{
         res.send(upazillass)
     }
     catch(err){
-        console.log("outside",err);
-        res.render('pd/demonstrationFinal/demonstrationFinal', { title: 'প্রদর্শনীর (দানাদার ধরণের) চূড়ান্ত প্রতিবেদন',success:'', upazillas:err });
+        console.log(err); 
     }
      
 
 };
-//demonstrationFinal controller end
+module.exports.demonstrationFinalUpload=async(req,res)=>{
+    try{
+        var districts=await dd.findAll();
+        console.log("inside");
+        res.render('pd/demonstrationFinal/demonstrationFinalUpload', { title: 'প্রদর্শনীর (দানাদার ধরণের) চূড়ান্ত প্রতিবেদন',success:'',district:districts });
+    }
+    catch(err){
+        console.log(err); 
+    }
+     
+    //  records:result
+
+};
+
+module.exports.demonstrationFinalUploadFilter=async(req,res)=>{
+    await demonstrationFinalUpload.findAll({ 
+        where: {year: req.body.year,upazilla_id: req.body.upazilla}
+    })
+    .then(data => {
+        res.render('pd/demonstrationFinal/demonstrationFinalUploadTable', {records: data} ,function(err, html) {
+            res.send(html);
+        });
+    })
+    .catch(err => {
+        console.log(err); 
+    })
+
+};
+
+module.exports.demonstrationFinalUploadDistrictFilter=async(req,res)=>{
+    try{
+        // var dds=await dd.findAll({where: {id: req.body.district}});
+        var upazillass=await upazilla.findAll({where: {dd_id: req.body.district}});
+        console.log("inside");
+        res.send(upazillass)
+    }
+    catch(err){
+        console.log(err); 
+    }
+     
+
+};
+//demonstrationFinalUpload controller end
 
 //expense controller
 module.exports.expense=async(req,res)=>{
@@ -284,8 +411,7 @@ module.exports.expense=async(req,res)=>{
         res.render('pd/expense/expense', { title: 'হিসাব বিবরণী',success:'',district:districts });
     }
     catch(err){
-        console.log("outside",err);
-        res.render('pd/expense/expense', { title: 'হিসাব বিবরণী',success:''});
+        console.log(err); 
     }
      
     //  records:result
@@ -302,7 +428,7 @@ module.exports.expenseFilter=async(req,res)=>{
         });
     })
     .catch(err => {
-        res.render('pd/expense/expenseYear', { title: 'হিসাব বিবরণী',success:'', records: err });
+        console.log(err); 
     })
 
 };
@@ -315,13 +441,54 @@ module.exports.expenseDistrictFilter=async(req,res)=>{
         res.send(upazillass)
     }
     catch(err){
-        console.log("outside",err);
-        res.render('pd/expense/expense', { title: 'হিসাব বিবরণী',success:'', upazillas:err });
+        console.log(err); 
     }
      
 
 };
-//expense controller end
+module.exports.expenseUpload=async(req,res)=>{
+    try{
+        var districts=await dd.findAll();
+        console.log("inside");
+        res.render('pd/expense/expenseUpload', { title: 'হিসাব বিবরণী',success:'',district:districts });
+    }
+    catch(err){
+        console.log(err); 
+    }
+     
+    //  records:result
+
+};
+
+module.exports.expenseUploadFilter=async(req,res)=>{
+    await expenseUpload.findAll({ 
+        where: {year: req.body.year,upazilla_id: req.body.upazilla}
+    })
+    .then(data => {
+        res.render('pd/expense/expenseUploadTable', {records: data} ,function(err, html) {
+            res.send(html);
+        });
+    })
+    .catch(err => {
+        console.log(err); 
+    })
+
+};
+
+module.exports.expenseUploadDistrictFilter=async(req,res)=>{
+    try{
+        // var dds=await dd.findAll({where: {id: req.body.district}});
+        var upazillass=await upazilla.findAll({where: {dd_id: req.body.district}});
+        console.log("inside");
+        res.send(upazillass)
+    }
+    catch(err){
+        console.log(err); 
+    }
+     
+
+};
+//expenseUpload controller end
 
 //fieldDay controller
 module.exports.fieldDay=async(req,res)=>{
@@ -331,8 +498,7 @@ module.exports.fieldDay=async(req,res)=>{
         res.render('pd/fieldDay/fieldDay', { title: 'মাঠ দিবস',success:'',district:districts });
     }
     catch(err){
-        console.log("outside",err);
-        res.render('pd/fieldDay/fieldDay', { title: 'মাঠ দিবস',success:''});
+        console.log(err); 
     }
      
     //  records:result
@@ -349,7 +515,7 @@ module.exports.fieldDayFilter=async(req,res)=>{
         });
     })
     .catch(err => {
-        res.render('pd/fieldDay/fieldDayYear', { title: 'মাঠ দিবস',success:'', records: err });
+        console.log(err); 
     })
 
 };
@@ -362,13 +528,54 @@ module.exports.fieldDayDistrictFilter=async(req,res)=>{
         res.send(upazillass)
     }
     catch(err){
-        console.log("outside",err);
-        res.render('pd/fieldDay/fieldDay', { title: 'মাঠ দিবস',success:'', upazillas:err });
+        console.log(err); 
     }
      
 
 };
-//fieldDay controller end
+module.exports.fieldDayUpload=async(req,res)=>{
+    try{
+        var districts=await dd.findAll();
+        console.log("inside");
+        res.render('pd/fieldDay/fieldDayUpload', { title: 'মাঠ দিবস',success:'',district:districts });
+    }
+    catch(err){
+        console.log(err); 
+    }
+     
+    //  records:result
+
+};
+
+module.exports.fieldDayUploadFilter=async(req,res)=>{
+    await fieldDayUpload.findAll({ 
+        where: {year: req.body.year,upazilla_id: req.body.upazilla}
+    })
+    .then(data => {
+        res.render('pd/fieldDay/fieldDayUploadTable', {records: data} ,function(err, html) {
+            res.send(html);
+        });
+    })
+    .catch(err => {
+        console.log(err); 
+    })
+
+};
+
+module.exports.fieldDayUploadDistrictFilter=async(req,res)=>{
+    try{
+        // var dds=await dd.findAll({where: {id: req.body.district}});
+        var upazillass=await upazilla.findAll({where: {dd_id: req.body.district}});
+        console.log("inside");
+        res.send(upazillass)
+    }
+    catch(err){
+        console.log(err); 
+    }
+     
+
+};
+//fieldDayUpload controller end
 
 //kormoshuchi controller
 module.exports.kormoshuchi=async(req,res)=>{
@@ -378,8 +585,7 @@ module.exports.kormoshuchi=async(req,res)=>{
         res.render('pd/kormoshuchi/kormoshuchi', { title: 'প্রশিক্ষণ কর্মসূচী',success:'',district:districts });
     }
     catch(err){
-        console.log("outside",err);
-        res.render('pd/kormoshuchi/kormoshuchi', { title: 'প্রশিক্ষণ কর্মসূচী',success:''});
+        console.log(err); 
     }
      
     //  records:result
@@ -396,7 +602,7 @@ module.exports.kormoshuchiFilter=async(req,res)=>{
         });
     })
     .catch(err => {
-        res.render('pd/kormoshuchi/kormoshuchiYear', { title: 'প্রশিক্ষণ কর্মসূচী',success:'', records: err });
+        console.log(err); 
     })
 
 };
@@ -409,13 +615,54 @@ module.exports.kormoshuchiDistrictFilter=async(req,res)=>{
         res.send(upazillass)
     }
     catch(err){
-        console.log("outside",err);
-        res.render('pd/kormoshuchi/kormoshuchi', { title: 'প্রশিক্ষণ কর্মসূচী',success:'', upazillas:err });
+        console.log(err); ;
     }
      
 
 };
-//kormoshuchi controller end
+module.exports.kormoshuchiUpload=async(req,res)=>{
+    try{
+        var districts=await dd.findAll();
+        console.log("inside");
+        res.render('pd/kormoshuchi/kormoshuchiUpload', { title: 'প্রশিক্ষণ কর্মসূচী',success:'',district:districts });
+    }
+    catch(err){
+        console.log(err); 
+    }
+     
+    //  records:result
+
+};
+
+module.exports.kormoshuchiUploadFilter=async(req,res)=>{
+    await kormoshuchiUpload.findAll({ 
+        where: {year: req.body.year,upazilla_id: req.body.upazilla}
+    })
+    .then(data => {
+        res.render('pd/kormoshuchi/kormoshuchiUploadTable', {records: data} ,function(err, html) {
+            res.send(html);
+        });
+    })
+    .catch(err => {
+        console.log(err); 
+    })
+
+};
+
+module.exports.kormoshuchiUploadDistrictFilter=async(req,res)=>{
+    try{
+        // var dds=await dd.findAll({where: {id: req.body.district}});
+        var upazillass=await upazilla.findAll({where: {dd_id: req.body.district}});
+        console.log("inside");
+        res.send(upazillass)
+    }
+    catch(err){
+        console.log(err); ;
+    }
+     
+
+};
+//kormoshuchiUpload controller end
 
 //noa controller
 module.exports.noa=async(req,res)=>{
@@ -425,8 +672,7 @@ module.exports.noa=async(req,res)=>{
         res.render('pd/noa/noa', { title: 'NOA সংক্রান্ত তথ্য',success:'',district:districts });
     }
     catch(err){
-        console.log("outside",err);
-        res.render('pd/noa/noa', { title: 'NOA সংক্রান্ত তথ্য',success:''});
+        console.log(err); 
     }
      
     //  records:result
@@ -443,7 +689,7 @@ module.exports.noaFilter=async(req,res)=>{
         });
     })
     .catch(err => {
-        res.render('pd/noa/noaYear', { title: 'NOA সংক্রান্ত তথ্য',success:'', records: err });
+        console.log(err); 
     })
 
 };
@@ -456,13 +702,54 @@ module.exports.noaDistrictFilter=async(req,res)=>{
         res.send(upazillass)
     }
     catch(err){
-        console.log("outside",err);
-        res.render('pd/noa/noa', { title: 'NOA সংক্রান্ত তথ্য',success:'', upazillas:err });
+        console.log(err); 
     }
      
 
 };
-//noa controller end
+module.exports.noaUpload=async(req,res)=>{
+    try{
+        var districts=await dd.findAll();
+        console.log("inside");
+        res.render('pd/noa/noaUpload', { title: 'NOA সংক্রান্ত তথ্য',success:'',district:districts });
+    }
+    catch(err){
+        console.log(err); 
+    }
+     
+    //  records:result
+
+};
+
+module.exports.noaUploadFilter=async(req,res)=>{
+    await noaUpload.findAll({ 
+        where: {year: req.body.year,upazilla_id: req.body.upazilla}
+    })
+    .then(data => {
+        res.render('pd/noa/noaUploadTable', {records: data} ,function(err, html) {
+            res.send(html);
+        });
+    })
+    .catch(err => {
+        console.log(err); 
+    })
+
+};
+
+module.exports.noaUploadDistrictFilter=async(req,res)=>{
+    try{
+        // var dds=await dd.findAll({where: {id: req.body.district}});
+        var upazillass=await upazilla.findAll({where: {dd_id: req.body.district}});
+        console.log("inside");
+        res.send(upazillass)
+    }
+    catch(err){
+        console.log(err); 
+    }
+     
+
+};
+//noaUpload controller end
 
 //progress controller
 module.exports.progress=async(req,res)=>{
@@ -472,8 +759,7 @@ module.exports.progress=async(req,res)=>{
         res.render('pd/progress/progress', { title: 'চলমান কার্যক্রমের অগ্রগতি',success:'',district:districts });
     }
     catch(err){
-        console.log("outside",err);
-        res.render('pd/progress/progress', { title: 'চলমান কার্যক্রমের অগ্রগতি',success:''});
+        console.log(err); 
     }
      
     //  records:result
@@ -490,26 +776,40 @@ module.exports.progressFilter=async(req,res)=>{
         });
     })
     .catch(err => {
-        res.render('pd/progress/progressYear', { title: 'চলমান কার্যক্রমের অগ্রগতি',success:'', records: err });
+        console.log(err); 
+    })
+
+};
+module.exports.progressUpload=async(req,res)=>{
+    try{
+        var districts=await ad.findAll();
+        console.log("inside");
+        res.render('pd/progress/progressUpload', { title: 'চলমান কার্যক্রমের অগ্রগতি',success:'',district:districts });
+    }
+    catch(err){
+        console.log(err); 
+    }
+     
+    //  records:result
+
+};
+
+module.exports.progressUploadFilter=async(req,res)=>{
+    await progressUpload.findAll({ 
+        where: {ad_id: req.body.district}
+    })
+    .then(data => {
+        res.render('pd/progress/progressUploadTable', {records: data} ,function(err, html) {
+            res.send(html);
+        });
+    })
+    .catch(err => {
+        console.log(err); 
     })
 
 };
 
-// module.exports.progressDistrictFilter=async(req,res)=>{
-//     try{
-//         // var dds=await dd.findAll({where: {id: req.body.district}});
-//         var upazillass=await upazilla.findAll({where: {dd_id: req.body.district}});
-//         console.log("inside");
-//         res.send(upazillass)
-//     }
-//     catch(err){
-//         console.log("outside",err);
-//         res.render('pd/progress/progress', { title: 'চলমান কার্যক্রমের অগ্রগতি',success:'', upazillas:err });
-//     }
-     
 
-// };
-//progress controller end
 
 //vermiCompostInitial controller
 module.exports.vermiCompostInitial=async(req,res)=>{
@@ -519,8 +819,7 @@ module.exports.vermiCompostInitial=async(req,res)=>{
         res.render('pd/vermiCompostInitial/vermiCompostInitial', { title: 'প্রদর্শনীর (ভার্মি কম্পোস্ট) প্রাথমিক প্রতিবেদন',success:'',district:districts });
     }
     catch(err){
-        console.log("outside",err);
-        res.render('pd/vermiCompostInitial/vermiCompostInitial', { title: 'প্রদর্শনীর (ভার্মি কম্পোস্ট) প্রাথমিক প্রতিবেদন',success:''});
+        console.log(err); 
     }
      
     //  records:result
@@ -537,8 +836,7 @@ module.exports.vermiCompostInitialFilter=async(req,res)=>{
         });
     })
     .catch(err => {
-        res.render('pd/vermiCompostInitial/vermiCompostInitialYear', { title: 'প্রদর্শনীর (ভার্মি কম্পোস্ট) প্রাথমিক প্রতিবেদন',success:'', records: err });
-    })
+        console.log(err);     })
 
 };
 
@@ -550,15 +848,55 @@ module.exports.vermiCompostInitialDistrictFilter=async(req,res)=>{
         res.send(upazillass)
     }
     catch(err){
-        console.log("outside",err);
-        res.render('pd/vermiCompostInitial/vermiCompostInitial', { title: 'প্রদর্শনীর (ভার্মি কম্পোস্ট) প্রাথমিক প্রতিবেদন',success:'', upazillas:err });
+        console.log(err); 
     }
      
 
 };
-//vermiCompostInitial controller end
+module.exports.vermiCompostInitialUpload=async(req,res)=>{
+    try{
+        var districts=await dd.findAll();
+        console.log("inside");
+        res.render('pd/vermiCompostInitial/vermiCompostInitialUpload', { title: 'প্রদর্শনীর (ভার্মি কম্পোস্ট) প্রাথমিক প্রতিবেদন',success:'',district:districts });
+    }
+    catch(err){
+        console.log(err); 
+    }
+     
+    //  records:result
 
-//vermiCompostFinal controller
+};
+
+module.exports.vermiCompostInitialUploadFilter=async(req,res)=>{
+    await vermiCompostInitialUpload.findAll({ 
+        where: {year: req.body.year,upazilla_id: req.body.upazilla}
+    })
+    .then(data => {
+        res.render('pd/vermiCompostInitial/vermiCompostInitialUploadTable', {records: data} ,function(err, html) {
+            res.send(html);
+        });
+    })
+    .catch(err => {
+        console.log(err);     })
+
+};
+
+module.exports.vermiCompostInitialUploadDistrictFilter=async(req,res)=>{
+    try{
+        // var dds=await dd.findAll({where: {id: req.body.district}});
+        var upazillass=await upazilla.findAll({where: {dd_id: req.body.district}});
+        console.log("inside");
+        res.send(upazillass)
+    }
+    catch(err){
+        console.log(err); 
+    }
+     
+
+};
+//vermiCompostInitialUpload controller end
+
+//vermiCompostFinalUpload controller
 module.exports.vermiCompostFinal=async(req,res)=>{
     try{
         var districts=await dd.findAll();
@@ -566,8 +904,7 @@ module.exports.vermiCompostFinal=async(req,res)=>{
         res.render('pd/vermiCompostFinal/vermiCompostFinal', { title: 'প্রদর্শনীর (ভার্মি কম্পোস্ট) চূড়ান্ত প্রতিবেদন',success:'',district:districts });
     }
     catch(err){
-        console.log("outside",err);
-        res.render('pd/vermiCompostFinal/vermiCompostFinal', { title: 'প্রদর্শনীর (ভার্মি কম্পোস্ট) চূড়ান্ত প্রতিবেদন',success:''});
+        console.log(err); 
     }
      
     //  records:result
@@ -598,10 +935,52 @@ module.exports.vermiCompostFinalDistrictFilter=async(req,res)=>{
         res.send(upazillass)
     }
     catch(err){
-        console.log("outside",err);
-        res.render('pd/vermiCompostFinal/vermiCompostFinal', { title: 'প্রদর্শনীর (ভার্মি কম্পোস্ট) চূড়ান্ত প্রতিবেদন',success:'', upazillas:err });
+        console.log(err); 
     }
      
 
 };
-//vermiCompostFinal controller end
+module.exports.vermiCompostFinalUpload=async(req,res)=>{
+    try{
+        var districts=await dd.findAll();
+        console.log("inside");
+        res.render('pd/vermiCompostFinal/vermiCompostFinalUpload', { title: 'প্রদর্শনীর (ভার্মি কম্পোস্ট) চূড়ান্ত প্রতিবেদন',success:'',district:districts });
+    }
+    catch(err){
+        console.log(err); 
+    }
+     
+    //  records:result
+
+};
+
+module.exports.vermiCompostFinalUploadFilter=async(req,res)=>{
+    await vermiCompostFinalUpload.findAll({ 
+        where: {year: req.body.year,upazilla_id: req.body.upazilla}
+    })
+    .then(data => {
+        console.log("data",data);
+        res.render('pd/vermiCompostFinal/vermiCompostUploadTable', {records: data} ,function(err, html) {
+            res.send(html);
+        });
+    })
+    .catch(err => {
+        console.log(err)
+    })
+
+};
+
+module.exports.vermiCompostFinalUploadDistrictFilter=async(req,res)=>{
+    try{
+        // var dds=await dd.findAll({where: {id: req.body.district}});
+        var upazillass=await upazilla.findAll({where: {dd_id: req.body.district}});
+        console.log("inside");
+        res.send(upazillass)
+    }
+    catch(err){
+        console.log(err); 
+    }
+     
+
+};
+//vermiCompostFinalUpload controller end

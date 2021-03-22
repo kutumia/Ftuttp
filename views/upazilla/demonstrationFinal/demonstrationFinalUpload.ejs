@@ -9,7 +9,7 @@
                     <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                         <div class="panel panel-info">
                             <div class="panel-heading">
-                                <div class="panel-title"><h2>কৃষক প্রশিক্ষণ তথ্য ফর্ম</h2></div>
+                                <div class="panel-title"><h2>চূড়ান্ত প্রতিবেদন (দানাদার ধরণের প্রদর্শনীর) তথ্যের ফাইলসমূহ</h2></div>
                                 <p><%
                                 if(success !=''){ %>
                                 <%= success %>
@@ -27,6 +27,19 @@
                                         <div class="form-group">
                                             <label >নতুন ফাইল আপ্লোড করুন</label>
                                             <input type="file" id="filename" class="form-control" name="demonstrationFinalUpload" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-9">
+                                                <label for="year">বছর :</label>
+                                            <select id="year" name="year" required>
+                                                <option value="2017">২০১৭-১৮</option>
+                                                <option value="2018">২০১৮-১৯</option>
+                                                <option value="2019">২০১৯-২০</option>
+                                                <option value="2020">২০২০-২১</option>
+                                                <option value="2021">২০২১-২২</option>
+                                                <option value="2022">২০২২-২৩</option>
+                                            </select>
+                                            </div>
                                         </div>
                                         <input type="hidden" class="form-control" name="user_id" placeholder="id" value="<%= user_id %>">
                                                     
